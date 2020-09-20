@@ -1,44 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author maric
+ * @author María del Carmen Reyes Rocha
  */
 public class EliminarServlet extends HttpServlet {
 
-   
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-       // processRequest(request, response);
-         String numeroControl=request.getParameter("NUMEROCONTROL");  
-        //int id=Integer.parseInt(sid);  
-        AlumnoDAO.delete(numeroControl);  
-        response.sendRedirect("VerServlet"); 
-        
-    }
 
-   
+        try {
+            //Sesion activa
+
+            Cookie[] cks = request.getCookies();
+            if (cks != null) {
+                for (int i = 0; i < cks.length; i++) {
+                    String name = cks[i].getName();
+                    String value = cks[i].getValue();
+                    if (name.equals("auth")) {
+                        break; // sale del ciclo y se queda en la pagina
+                    }
+                    if (i == (cks.length - 1)) // si la cookies no es valida redirge al index
+                    {
+                        response.sendRedirect("index.jsp");
+                        return; //alto de ejecucion
+                    }
+                    i++;
+                }
+            } else {
+                response.sendRedirect("index.jsp");
+                return;
+            }
+
+            String numeroControl = request.getParameter("NUMEROCONTROL");
+
+            AlumnoDAO.delete(numeroControl);
+            response.sendRedirect("VerServlet");
+
+        } catch (Exception exc) {
+            System.out.println(exc);
+        }
+
+    }
 
 }

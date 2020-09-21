@@ -28,6 +28,10 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>LogoutServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Ejemplo</servlet-name>
+        <servlet-class>Ejemplo</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>GuardarServlet</servlet-name>
         <url-pattern>/GuardarServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>
         <url-pattern>/LogoutServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Ejemplo</servlet-name>
+        <url-pattern>/Ejemplo</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

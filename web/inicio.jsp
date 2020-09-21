@@ -15,25 +15,14 @@
         <%
             //Sesion activa
 
-            Cookie[] cks = request.getCookies();
-            if (cks != null) {
-                for (int i = 0; i < cks.length; i++) {
-                    String name = cks[i].getName();
-                    String value = cks[i].getValue();
-                    if (name.equals("auth")) {
-                        break; // sale del ciclo y se queda en la pagina
-                    }
-                    if (i == (cks.length - 1)) // si la cookies no es valida redirge al index
-                    {
-                        response.sendRedirect("index.jsp");
-                        return; //alto de ejecucion
-                    }
-                    i++;
+            if (session != null) {
+                if (session.getAttribute("user") != null) {
+                    String name = (String) session.getAttribute("user");
+                } else {
+                    response.sendRedirect("index.jsp");
                 }
-            } else {
-                response.sendRedirect("index.jsp");
-                return;
             }
+
         %>
         <!-- CERRAR SESIÓN-->
         <form action="LogoutServlet" method="post">

@@ -7,6 +7,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class VerServlet extends HttpServlet {
 
@@ -18,24 +19,13 @@ public class VerServlet extends HttpServlet {
             PrintWriter out = response.getWriter();
             
             //Sesion activa
-            Cookie[] cks = request.getCookies();
-            if (cks != null) {
-                for (int i = 0; i < cks.length; i++) {
-                    String name = cks[i].getName();
-                    String value = cks[i].getValue();
-                    if (name.equals("auth")) {
-                        break; // sale del ciclo y se queda en la pagina
-                    }
-                    if (i == (cks.length - 1)) // si la cookies no es valida redirge al index
-                    {
-                        response.sendRedirect("index.jsp");
-                        return; //alto de ejecucion
-                    }
-                    i++;
+          HttpSession session = request.getSession();
+             if (session != null) {
+                if (session.getAttribute("user") != null) {
+                    String name = (String) session.getAttribute("user");
+                } else {
+                    response.sendRedirect("index.jsp");
                 }
-            } else {
-                response.sendRedirect("index.jsp");
-                return;
             }
             
             //Cerrar sesión
@@ -60,8 +50,8 @@ public class VerServlet extends HttpServlet {
 
         } catch (Exception exc) {
             System.out.println(exc);
-        }
+        }//catch
 
-    }
+    }//metodo doGet
 
-}
+}//Clase

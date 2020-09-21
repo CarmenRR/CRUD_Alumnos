@@ -20,6 +20,7 @@
                     String name = (String) session.getAttribute("user");
                 } else {
                     response.sendRedirect("index.jsp");
+                    
                 }
             }
 

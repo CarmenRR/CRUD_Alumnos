@@ -1,6 +1,7 @@
 <%-- 
     Document   : index.jsp
     Author     : María del Carmen Reyes Rocha
+
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
